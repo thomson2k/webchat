@@ -6,6 +6,3 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
-
-
-fetch('http://localhost:3010/').catch(err => console.log(err))
