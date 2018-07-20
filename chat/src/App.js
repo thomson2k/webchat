@@ -3,17 +3,30 @@ import logo from './logo.svg';
 import './App.css';
 
 function Conversation (props) {
-    return (
-      <div className="conversation">
-        {props.list.map(statement => (
+  return (
+    <div className="conversation">
+      {props.list.map(statement => (
+        <div>
           <div className="statement">
             {statement}
           </div>
-        ))}
-      </div>
-    );
-  }
+        </div>
+      ))}
+    </div>
+  )
+}
 
+function StatementInput (props) {
+  return (
+    <input type="text"
+      onKeyPress={ev => {
+        if (ev.key === 'Enter') {
+          props.onEnter(ev.target.value)
+          ev.target.value = ''
+        }
+      }} />
+  )
+}
 
 class App extends Component {
 
@@ -37,15 +50,23 @@ class App extends Component {
     }, 1000)
   }
 
-  render() {
-    const list = [
-      'for',
-      'example',
-      'asd'
-    ]
+  send(statement) {
+    fetch('/statements', {
+      method: 'POST',
+      body: JSON.stringify({
+        statement: statement
+      }),
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+  }
+
+  render () {
     return (
       <div>
         <Conversation list={this.state.statements} />
+        <StatementInput onEnter={statement => {this.send(statement)}} />
       </div>
     );
   }
