@@ -9,7 +9,10 @@ app.use('/', express.static(
 
 app.use(bodyParser.json())
 
-const statements = []
+const statements = [
+  'somef',
+  'asd'
+]
 
 app.get('/statements', (req, res) => {
   res.send(statements)
