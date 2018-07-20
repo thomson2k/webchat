@@ -3,7 +3,6 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const app = express()
 
-
 app.use('/', express.static(
   path.resolve('../chat/build')
 ))
@@ -12,13 +11,13 @@ app.use(bodyParser.json())
 
 const statements = []
 
-app.get('/statments', (req,res) => {
-  res.send(statments)
+app.get('/statements', (req, res) => {
+  res.send(statements)
 })
 
 app.post('/statements', (req, res) => {
-  console.log(req.body)
-  res.send('ok')
+  statements.push(req.body.statement)
+  res.send()
 })
 
 app.listen(3010)

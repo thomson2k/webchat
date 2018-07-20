@@ -16,14 +16,36 @@ function Conversation (props) {
 
 
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      statements: []
+    }
+  }
+
+  componentDidMount () {
+    setInterval(() => {
+      fetch('/statements')
+        .then(resp => resp.json())
+        .then(statements => {
+          this.setState({
+            statements: statements
+          })
+        })
+    }, 1000)
+  }
+
   render() {
     const list = [
       'for',
-       'example'
+      'example',
+      'asd'
     ]
     return (
       <div>
-        <Conversation list={list} />
+        <Conversation list={this.state.statements} />
       </div>
     );
   }
